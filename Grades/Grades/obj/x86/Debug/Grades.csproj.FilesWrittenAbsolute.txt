@@ -1,0 +1,5 @@
+/Users/bmiller/Projects/Grades/Grades/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/bmiller/Projects/Grades/Grades/bin/Debug/Grades.exe.mdb
+/Users/bmiller/Projects/Grades/Grades/bin/Debug/Grades.exe
+/Users/bmiller/Projects/Grades/Grades/obj/x86/Debug/Grades.exe
+/Users/bmiller/Projects/Grades/Grades/obj/x86/Debug/Grades.exe.mdb
