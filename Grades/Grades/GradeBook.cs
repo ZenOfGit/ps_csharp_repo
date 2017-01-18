@@ -1,38 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Grades
 {
-	public class GradeBook
-	{
+    public class GradeBook : GradeTracker
+    {
 
-		public GradeBook()
-		{
-			grades = new List<float>();	
-		}
+        public GradeBook()
+        {
+            _name = "Empty";
+            grades = new List<float>();
+        }
 
-		public GradeStatistics ComputeStatistics()
-		{
-			GradeStatistics stats = new GradeStatistics();
+        public override GradeStatistics ComputeStatistics()
+        {
+            GradeStatistics stats = new GradeStatistics();
 
-			float sum = 0;
-			foreach (float grade in grades)
-			{
-				stats.HighestGrade = Math.Max(grade, stats.HighestGrade);
-				stats.LowestGrade = Math.Min(grade, stats.LowestGrade);
-				sum += grade;
-			}
+            float sum = 0;
+            foreach (float grade in grades)
+            {
+                stats.HighestGrade = Math.Max(grade, stats.HighestGrade);
+                stats.LowestGrade = Math.Min(grade, stats.LowestGrade);
+                sum += grade;
+            }
 
-			stats.AverageGrade = sum / grades.Count;
+            stats.AverageGrade = sum / grades.Count;
 
-			return stats;
-		}
+            return stats;
+        }
 
-		public void AddGrade(float grade)
-		{
-			grades.Add(grade);
-		}
+        public override void WriteGrades(TextWriter destination)
+        {
+            for (int i = 0; i < grades.Count; i++)
+            {
+                destination.WriteLine(grades[i]);
+            }
+        }
 
-		List<float> grades = new List<float>(); //field is initialized and points to object
-	}
+        public override void AddGrade(float grade)
+        {
+            grades.Add(grade);
+        }
+
+
+
+        protected List<float> grades; //field is initialized and points to object
+    }
 }

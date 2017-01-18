@@ -1,22 +1,91 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Speech.Synthesis;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Grades
 {
 	class Program
 	{
 		public static void Main(string[] args)
-		{
-			GradeBook book = new GradeBook();
-			book.AddGrade(91);
-			book.AddGrade(89.5f);
-			book.AddGrade(75);
+        {
+            IGradeTracker book = CreateGradeBook();
 
-			GradeStatistics stats = book.ComputeStatistics();
-			Console.WriteLine(stats.AverageGrade);
-			Console.WriteLine(stats.HighestGrade);
-			Console.WriteLine(stats.LowestGrade);
+            GetBookName(book);
+            AddGrades(book);
+            SaveGrades(book);
+            WriteResults(book);
 
-		
-		}
-	}
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+
+
+        }
+
+        private static IGradeTracker CreateGradeBook()
+        {
+            return new ThrowAwayGradeBook();
+        }
+
+        private static void WriteResults(IGradeTracker book)
+        {
+            GradeStatistics stats = book.ComputeStatistics();
+
+            foreach (float grade in book)
+            {
+                Console.WriteLine(grade);
+            }
+
+            WriteResult("Average", stats.AverageGrade);
+            WriteResult("Lowest", stats.LowestGrade);
+            WriteResult("Highest", stats.HighestGrade);
+            WriteResult(stats.Description, stats.LetterGrade);
+        }
+
+        private static void SaveGrades(IGradeTracker book)
+        {
+            using (StreamWriter outputFile = File.CreateText("grades.txt"))
+            {
+                book.WriteGrades(outputFile);
+            }
+        }
+
+        private static void AddGrades(IGradeTracker book)
+        {
+            book.AddGrade(91);
+            book.AddGrade(89.5f);
+            book.AddGrade(75);
+        }
+
+        private static void GetBookName(IGradeTracker book)
+        {
+            try
+            {
+                Console.WriteLine("Enter a name");
+                book.Name = Console.ReadLine();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        static void OnNameChanged(object sender, NameChangedEventArgs args)
+        {
+            Console.WriteLine($"Grade book changing name from {args.ExistingName} to {args.NewName}");
+        }
+
+        static void WriteResult(string description, string result)
+        {
+            Console.WriteLine($"{description}: {result}", description, result);
+        }
+
+        static void WriteResult(string description, float result)
+        {
+            Console.WriteLine($"{description}: {result:F2}", description, result);
+        }
+    }
 }

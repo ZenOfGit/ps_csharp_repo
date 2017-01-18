@@ -1,0 +1,5 @@
+C:\Users\Brad\Desktop\ps_csharp_repo\Grades\Grades\obj\x86\Debug\Grades.exe
+C:\Users\Brad\Desktop\ps_csharp_repo\Grades\Grades\bin\Debug\Grades.exe
+C:\Users\Brad\Desktop\ps_csharp_repo\Grades\Grades\bin\Debug\Grades.pdb
+C:\Users\Brad\Desktop\ps_csharp_repo\Grades\Grades\obj\x86\Debug\Grades.csprojResolveAssemblyReference.cache
+C:\Users\Brad\Desktop\ps_csharp_repo\Grades\Grades\obj\x86\Debug\Grades.pdb
