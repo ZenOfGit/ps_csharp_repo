@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
@@ -43,7 +44,10 @@ namespace Grades
             grades.Add(grade);
         }
 
-
+        public override IEnumerator GetEnumerator()
+        {
+            return grades.GetEnumerator();
+        }
 
         protected List<float> grades; //field is initialized and points to object
     }
